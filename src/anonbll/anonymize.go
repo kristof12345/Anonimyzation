@@ -61,12 +61,12 @@ func doAnonymization(dataset *anonmodel.Dataset, continuous bool) error {
 	return anondb.RenameAnonFields(anonCollectionName, quasiIdentifierFields)
 }
 
-// Gets a matching equlivalent class for the given values
+// Gets the matching equlivalent classes for the given attribute values
 func GetMatchingClasses(document anonmodel.Document) []anonmodel.EqulivalenceClass {
 
 	var result []anonmodel.EqulivalenceClass
 
-	list, err := anondb.ListEqulivalenceClasses()
+	list, err := anondb.ListActiveEqulivalenceClasses()
 
 	if err == nil {
 		// Foreach equlivalence class
@@ -80,14 +80,6 @@ func GetMatchingClasses(document anonmodel.Document) []anonmodel.EqulivalenceCla
 	return result
 }
 
-// Inserts dthe document and increases class count
-func AddDocumentToClass(document anonmodel.Document, class anonmodel.EqulivalenceClass) {
-
-	class = anondb.GetEqulivalenceClass(class.Id)
-	class.Count++
-	anondb.UpdateEqulivalenceClass(class.Id, &class)
-}
-
 func fieldsMatchEqulivalenceClass(class anonmodel.EqulivalenceClass, document anonmodel.Document) bool {
 
 	// Foreach categoric field
@@ -99,11 +91,27 @@ func fieldsMatchEqulivalenceClass(class anonmodel.EqulivalenceClass, document an
 
 	// Foreach interval field
 	for key, value := range class.IntervalAttributes {
-		var interval = document[key].(anonmodel.Interval)
-		if interval.BottomLimit > value.UpperLimit || interval.UpperLimit < value.BottomLimit {
+		var interval = document[key].(anonmodel.NumericRange)
+		if anonmodel.HasIntersection(value, interval) {
 			return false
 		}
 	}
 
 	return true
+}
+
+// Registers that a client wants to send a document to the given class, but the class does not contain k elements yet
+func RegisterDocumentToClass(id int) {
+	var k = 3 // TODO
+	var class = anondb.GetEqulivalenceClass(id)
+	class.Count++
+	anondb.UpdateEqulivalenceClass(class.Id, &class)
+	if class.Count >= k {
+		//TODO: kozponti tablaba kitenni
+	}
+}
+
+// Inserts the document to the given equlivalence class
+func AddDocumentToClass(document anonmodel.Document, id int) {
+	//TODO: sava document linked to class
 }

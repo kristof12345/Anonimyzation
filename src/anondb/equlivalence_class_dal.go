@@ -7,17 +7,17 @@ import (
 )
 
 // Creates a new equlivalence class
-func CreateEqulivalenceClass(class *anonmodel.EqulivalenceClass) error {
+func CreateEqulivalenceClass(class *anonmodel.EqulivalenceClass) (*anonmodel.EqulivalenceClass, error) {
 	session := globalSession.Copy()
 	defer session.Close()
 
 	classes := session.DB("anondb").C("classes")
 	err := classes.Insert(class)
 	if err != nil && mgo.IsDup(err) {
-		return ErrDuplicate
+		return class, ErrDuplicate
 	}
 
-	return err
+	return class, err
 }
 
 // Updates an equlivalence class
@@ -45,17 +45,15 @@ func DeleteEqulivalenceClass(id int) error {
 }
 
 // Get an equlivalence class
-func GetEqulivalenceClass(id int) anonmodel.EqulivalenceClass {
+func GetEqulivalenceClass(id int) (class anonmodel.EqulivalenceClass, err error) {
 	session := globalSession.Copy()
 	defer session.Close()
 
 	var filter = bson.M{"id": id}
 
-	var class anonmodel.EqulivalenceClass
-
 	classes := session.DB("anondb").C("classes")
-	classes.Find(filter).One(&class)
-	return class
+	err = classes.Find(filter).One(&class)
+	return
 }
 
 // Lists all the equlivalence classes in the database
@@ -65,6 +63,24 @@ func ListEqulivalenceClasses() (classList []anonmodel.EqulivalenceClass, err err
 
 	classes := session.DB("anondb").C("classes")
 	if err = classes.Find(nil).All(&classList); err != nil {
+		return
+	}
+
+	if classList == nil {
+		classList = []anonmodel.EqulivalenceClass{}
+	}
+	return
+}
+
+// Lists the active equlivalence classes in the database
+func ListActiveEqulivalenceClasses() (classList []anonmodel.EqulivalenceClass, err error) {
+	session := globalSession.Copy()
+	defer session.Close()
+
+	var filter = bson.M{"active": true}
+
+	classes := session.DB("anondb").C("classes")
+	if err = classes.Find(filter).All(&classList); err != nil {
 		return
 	}
 

@@ -114,13 +114,6 @@ var routes = []route{
 	},
 
 	route{
-		Name:        "GetMatchingClasses",
-		Method:      strings.ToUpper("Get"),
-		Pattern:     "/v1/classes/matching",
-		HandlerFunc: getMatchingClasses,
-	},
-
-	route{
 		Name:        "CreateEqulivalenceClass",
 		Method:      strings.ToUpper("Post"),
 		Pattern:     "/v1/classes",
@@ -128,9 +121,37 @@ var routes = []route{
 	},
 
 	route{
-		Name:        "GetAllClasses",
+		Name:        "ListClasses",
 		Method:      strings.ToUpper("Get"),
 		Pattern:     "/v1/classes",
-		HandlerFunc: getAllClasses,
+		HandlerFunc: getAllEqulivalenceClasses,
+	},
+
+	route{
+		Name:        "GetClass",
+		Method:      strings.ToUpper("Get"),
+		Pattern:     "/v1/classes/{id}",
+		HandlerFunc: getEqulivalenceClassById,
+	},
+
+	route{
+		Name:        "DeleteClass",
+		Method:      strings.ToUpper("Delete"),
+		Pattern:     "/v1/classes/{id}",
+		HandlerFunc: deleteEqulivalenceClassById,
+	},
+
+	route{
+		Name:        "GetMatchingClasses",
+		Method:      strings.ToUpper("Get"),
+		Pattern:     "/v1/classes/matching",
+		HandlerFunc: getMatchingEqulivalenceClasses,
+	},
+
+	route{
+		Name:        "RegisterDocumentToClass",
+		Method:      strings.ToUpper("Put"),
+		Pattern:     "/v1/classes",
+		HandlerFunc: registerDocumentToEqulivalenceClass,
 	},
 }

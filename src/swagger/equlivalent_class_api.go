@@ -10,7 +10,7 @@ import (
 )
 
 // Get equlivalence classes matching the given document
-func getMatchingClasses(w http.ResponseWriter, r *http.Request) {
+func getMatchingEqulivalenceClasses(w http.ResponseWriter, r *http.Request) {
 
 	var document anonmodel.Document
 	if !tryReadRequestBody(r, &document, w) {
@@ -22,49 +22,84 @@ func getMatchingClasses(w http.ResponseWriter, r *http.Request) {
 
 // Create new equlivalence class
 func createEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
-	var interval = make(map[string]anonmodel.Interval)
-	interval["Age"] = anonmodel.Interval{10, 20}
+	var request anonmodel.EqulivalenceClass
+	if !tryReadRequestBody(r, &request, w) {
+		return
+	}
 
-	var categoric = make(map[string]string)
-	categoric["City"] = "Bp"
+	/*
+		var interval = make(map[string]anonmodel.NumericRange)
+		interval["Age"] = anonmodel.NumericRange{10, 20}
 
-	var class = anonmodel.EqulivalenceClass{1, categoric, interval, 0, true}
+		var categoric = make(map[string]string)
+		categoric["City"] = "Bp"
 
-	err := anondb.CreateEqulivalenceClass(&class)
+		var class = anonmodel.EqulivalenceClass{1, categoric, interval, 0, true}
+	*/
+
+	result, err := anondb.CreateEqulivalenceClass(&request)
 
 	if err != nil {
 		logDBError(err)
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 	} else {
-		respondWithJSON(w, http.StatusOK, class)
+		respondWithJSON(w, http.StatusOK, result)
 	}
 }
 
 // Get all equlivalence classes
-func getAllClasses(w http.ResponseWriter, r *http.Request) {
-	classList, err := anondb.ListEqulivalenceClasses()
+func getAllEqulivalenceClasses(w http.ResponseWriter, r *http.Request) {
 
-	anondb.DeleteEqulivalenceClass(1) //TODO: remove
+	result, err := anondb.ListEqulivalenceClasses()
 
 	if err != nil {
 		logDBError(err)
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 	} else {
-		respondWithJSON(w, http.StatusOK, classList)
+		respondWithJSON(w, http.StatusOK, result)
 	}
 }
 
 // Get equlivalence class by id
-func getClassById(w http.ResponseWriter, r *http.Request) {
-	var documents anonmodel.Documents
-	if !tryReadRequestBody(r, &documents, w) {
+func getEqulivalenceClassById(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+
+	// Parsing id
+	id, parseErr := strconv.Atoi(vars["id"])
+	if parseErr != nil {
+		respondWithError(w, http.StatusBadRequest, "Unable to parse id.")
 		return
 	}
+
+	result, err := anondb.GetEqulivalenceClass(id)
+
+	if err != nil {
+		logDBError(err)
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+	} else {
+		respondWithJSON(w, http.StatusOK, result)
+	}
+}
+
+// Delete equlivalence class by id
+func deleteEqulivalenceClassById(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
 	if id, err := strconv.Atoi(vars["id"]); err == nil {
-		class := anondb.GetEqulivalenceClass(id)
-		respondWithJSON(w, http.StatusOK, class)
+		result := anondb.DeleteEqulivalenceClass(id)
+		respondWithJSON(w, http.StatusOK, result)
+	}
+}
+
+// Delete equlivalence class by id
+func registerDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+
+	if id, err := strconv.Atoi(vars["id"]); err == nil {
+		result := anondb.DeleteEqulivalenceClass(id)
+		respondWithJSON(w, http.StatusOK, result)
 	}
 }

@@ -89,3 +89,11 @@ func (r *NumericRange) GetNormalizedRange(original *NumericRange) float64 {
 	diff := r.Max - r.Min
 	return diff / originalDiff
 }
+
+// Returnes true if the ranges have intersection
+func HasIntersection(range1 NumericRange, range2 NumericRange) bool {
+	if range1.Min > range2.Max || range1.Max < range2.Min {
+		return false
+	}
+	return true
+}
