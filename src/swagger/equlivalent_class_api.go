@@ -27,16 +27,6 @@ func createEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	/*
-		var interval = make(map[string]anonmodel.NumericRange)
-		interval["Age"] = anonmodel.NumericRange{10, 20}
-
-		var categoric = make(map[string]string)
-		categoric["City"] = "Bp"
-
-		var class = anonmodel.EqulivalenceClass{1, categoric, interval, 0, true}
-	*/
-
 	result, err := anondb.CreateEqulivalenceClass(&request)
 
 	if err != nil {
@@ -87,19 +77,30 @@ func deleteEqulivalenceClassById(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
-	if id, err := strconv.Atoi(vars["id"]); err == nil {
-		result := anondb.DeleteEqulivalenceClass(id)
-		respondWithJSON(w, http.StatusOK, result)
+	// Parsing id
+	id, parseErr := strconv.Atoi(vars["id"])
+	if parseErr != nil {
+		respondWithError(w, http.StatusBadRequest, "Unable to parse id.")
+		return
+	}
+
+	err := anondb.DeleteEqulivalenceClass(id)
+
+	if err != nil {
+		logDBError(err)
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+	} else {
+		respondWithJSON(w, http.StatusOK, "Deleted.")
 	}
 }
 
-// Delete equlivalence class by id
+// Register document to equlivalence class
 func registerDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
 	if id, err := strconv.Atoi(vars["id"]); err == nil {
-		result := anondb.DeleteEqulivalenceClass(id)
-		respondWithJSON(w, http.StatusOK, result)
+		anonbll.RegisterDocumentToClass(id)
+		respondWithJSON(w, http.StatusOK, "Registered.")
 	}
 }

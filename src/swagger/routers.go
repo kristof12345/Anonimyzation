@@ -151,7 +151,7 @@ var routes = []route{
 	route{
 		Name:        "RegisterDocumentToClass",
 		Method:      strings.ToUpper("Put"),
-		Pattern:     "/v1/classes",
+		Pattern:     "/v1/classes/{id}",
 		HandlerFunc: registerDocumentToEqulivalenceClass,
 	},
 }

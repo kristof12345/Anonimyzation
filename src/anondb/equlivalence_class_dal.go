@@ -25,7 +25,7 @@ func UpdateEqulivalenceClass(id int, class *anonmodel.EqulivalenceClass) error {
 	session := globalSession.Copy()
 	defer session.Close()
 
-	var filter = bson.M{"Id": id}
+	var filter = bson.M{"id": id}
 
 	classes := session.DB("anondb").C("classes")
 	err := classes.Update(filter, class)
