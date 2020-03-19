@@ -114,7 +114,7 @@ var routes = []route{
 	},
 
 	route{
-		Name:        "UploadSessionIdPost",
+		Name:        "UploadToEqulivalenceClassPost",
 		Method:      strings.ToUpper("Post"),
 		Pattern:     "/v1/upload/{sessionId}/{classId}",
 		HandlerFunc: uploadDocumentToEqulivalenceClass,

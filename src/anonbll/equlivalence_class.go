@@ -43,29 +43,3 @@ func fieldsMatchEqulivalenceClass(class anonmodel.EqulivalenceClass, document an
 
 	return true
 }
-
-// Registers that a client wants to send a document to the given class, but the class does not contain k elements yet
-func RegisterDocumentToClass(id int) {
-	// TODO
-	var k = 3
-	var e1 = 1
-	var e2 = 1
-
-	class, err := anondb.GetEqulivalenceClass(id)
-	if err == nil {
-		class.Count++
-		anondb.UpdateEqulivalenceClass(id, &class)
-		if class.Count >= k+e1 {
-			//TODO: kozponti tablaba kitenni
-		}
-
-		if class.Count >= k+e2 {
-			//TODO: mar nem aktiv
-		}
-	}
-}
-
-// Inserts the document to the given equlivalence class
-func AddDocumentToClass(document anonmodel.Document, id int) {
-	//TODO: sava document linked to class
-}

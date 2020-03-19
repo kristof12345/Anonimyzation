@@ -53,7 +53,7 @@ func uploadSessionIDPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	vars := mux.Vars(r)
-	insertSuccessful, finalizeSuccessful, err := anonbll.UploadDocuments(vars["sessionId"], documents, last, 0)
+	insertSuccessful, finalizeSuccessful, err := anonbll.UploadDocuments(vars["sessionId"], documents, last)
 	if !insertSuccessful {
 		switch err.(type) {
 		case anonmodel.ErrValidation:
@@ -74,14 +74,8 @@ func uploadSessionIDPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func uploadDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
-	last, err := readLastQueryParam(r.URL)
-	if err != nil {
-		respondWithError(w, http.StatusBadRequest, err.Error())
-		return
-	}
-
-	var documents anonmodel.Documents
-	if !tryReadRequestBody(r, &documents, w) {
+	var document anonmodel.Document
+	if !tryReadRequestBody(r, &document, w) {
 		return
 	}
 
@@ -94,21 +88,14 @@ func uploadDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	insertSuccessful, finalizeSuccessful, err := anonbll.UploadDocuments(vars["sessionId"], documents, last, class)
-	if !insertSuccessful {
-		switch err.(type) {
-		case anonmodel.ErrValidation:
-			respondWithError(w, http.StatusBadRequest, err.Error())
-		default:
-			handleDBNotFound(err, w, http.StatusBadRequest, "The upload session with the specified ID was not found or is currently in use")
-		}
+	successful, err := anonbll.UploadDocumentToEqulivalenceClass(vars["sessionId"], document, class)
+	if !successful {
+		respondWithError(w, http.StatusBadRequest, err.Error())
+
 	} else {
 		response := UploadResponse{
-			InsertSuccessful:   insertSuccessful,
-			FinalizeSuccessful: finalizeSuccessful,
-		}
-		if err != nil {
-			response.Error = err.Error()
+			InsertSuccessful:   successful,
+			FinalizeSuccessful: successful,
 		}
 		respondWithJSON(w, http.StatusOK, &response)
 	}

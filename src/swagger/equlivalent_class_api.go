@@ -98,16 +98,3 @@ func deleteEqulivalenceClassById(w http.ResponseWriter, r *http.Request) {
 		respondWithJSON(w, http.StatusOK, "Deleted.")
 	}
 }
-
-/*
-// Register document to equlivalence class
-func registerDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
-
-	vars := mux.Vars(r)
-
-	if id, err := strconv.Atoi(vars["id"]); err == nil {
-		anonbll.RegisterDocumentToClass(id)
-		respondWithJSON(w, http.StatusOK, "Registered.")
-	}
-}
-*/
