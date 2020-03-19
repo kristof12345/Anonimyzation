@@ -3,11 +3,13 @@ package anondb
 import (
 	"encoding/base64"
 	"errors"
+	"github.com/satori/go.uuid"
 )
 
 func generateUUID() string {
-	//return base64urlEncode(uuid.NewV4().Bytes())
-	return "Item not found"
+	var err error
+	var bytes = uuid.Must(uuid.NewV4(), err).Bytes()
+	return base64urlEncode(bytes)
 }
 
 // base64urlEncode implements an URL safe base64 encoding, as seen here:

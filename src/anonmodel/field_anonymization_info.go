@@ -14,8 +14,8 @@ func (fieldInfo *FieldAnonymizationInfo) validate() error {
 		return err
 	}
 
-	if fieldInfo.Mode != "id" && fieldInfo.Mode != "qid" && fieldInfo.Mode != "keep" && fieldInfo.Mode != "drop" {
-		return fmt.Errorf("Field 'mode' should be one of 'id', 'qid', 'keep' or 'drop', got '%v'", fieldInfo.Mode)
+	if fieldInfo.Mode != "id" && fieldInfo.Mode != "qid" && fieldInfo.Mode != "keep" && fieldInfo.Mode != "cat" && fieldInfo.Mode != "int" && fieldInfo.Mode != "drop" {
+		return fmt.Errorf("Field 'mode' should be one of 'id', 'qid', 'cat', 'int', 'keep' or 'drop', got '%v'", fieldInfo.Mode)
 	}
 
 	if fieldInfo.Mode == "qid" && fieldInfo.Type != "numeric" && fieldInfo.Type != "prefix" && fieldInfo.Type != "coords" {

@@ -44,7 +44,7 @@ func DeleteEqulivalenceClass(id int) error {
 	return err
 }
 
-// Get an equlivalence class
+// Get an equlivalence class by id
 func GetEqulivalenceClass(id int) (class anonmodel.EqulivalenceClass, err error) {
 	session := globalSession.Copy()
 	defer session.Close()

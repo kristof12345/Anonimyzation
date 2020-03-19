@@ -4,6 +4,7 @@ import "fmt"
 
 // AnonymizationSettings stores the settings about the dataset
 type AnonymizationSettings struct {
+	E         int    `json:"e" bson:"e"`
 	K         int    `json:"k" bson:"k"`
 	Algorithm string `json:"algorithm" bson:"algorithm"`
 	Mode      string `json:"mode" bson:"mode"`
@@ -18,8 +19,8 @@ func (settings *AnonymizationSettings) validate() error {
 		return fmt.Errorf("The only currently supported anonymization is 'mondrian', got '%v'", settings.Algorithm)
 	}
 
-	if settings.Mode != "single" && settings.Mode != "continuous" {
-		return fmt.Errorf("Anonymization mode should be 'single' or 'continuous', got '%v'", settings.Mode)
+	if settings.Mode != "single" && settings.Mode != "continuous" && settings.Mode != "client-side" {
+		return fmt.Errorf("Anonymization mode should be 'single', 'continuous' or client-side, got '%v'", settings.Mode)
 	}
 
 	return nil

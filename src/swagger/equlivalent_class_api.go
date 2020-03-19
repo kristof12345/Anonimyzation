@@ -11,13 +11,18 @@ import (
 
 // Get equlivalence classes matching the given document
 func getMatchingEqulivalenceClasses(w http.ResponseWriter, r *http.Request) {
-
 	var document anonmodel.Document
 	if !tryReadRequestBody(r, &document, w) {
 		return
 	}
 
-	anonbll.GetMatchingClasses(document)
+	result, err := anonbll.GetMatchingClasses(document)
+
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+	} else {
+		respondWithJSON(w, http.StatusOK, result)
+	}
 }
 
 // Create new equlivalence class
@@ -94,6 +99,7 @@ func deleteEqulivalenceClassById(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+/*
 // Register document to equlivalence class
 func registerDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
 
@@ -104,3 +110,4 @@ func registerDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request)
 		respondWithJSON(w, http.StatusOK, "Registered.")
 	}
 }
+*/

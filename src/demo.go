@@ -34,7 +34,7 @@ func main() {
 	// Document
 	var document = make(map[string]interface{})
 	document["City"] = "Bp"
-	document["Age"] = anonmodel.Interval{40, 50}
+	document["Age"] = anonmodel.NumericRange{40, 50}
 
 	var eqs = anonbll.GetMatchingClasses(document)
 
@@ -45,8 +45,8 @@ func main() {
 
 func CreateDemoEqulivalenceClasses() {
 
-	var interval = make(map[string]anonmodel.Interval)
-	interval["Age"] = anonmodel.Interval{10, 20}
+	var interval = make(map[string]anonmodel.NumericRange)
+	interval["Age"] = anonmodel.NumericRange{10, 20}
 
 	var categoric = make(map[string]string)
 	categoric["City"] = "Bp"
