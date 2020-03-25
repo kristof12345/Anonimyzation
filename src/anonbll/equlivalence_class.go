@@ -28,16 +28,19 @@ func fieldsMatchEqulivalenceClass(class anonmodel.EqulivalenceClass, document an
 
 	// Foreach categoric field
 	for key, value := range class.CategoricAttributes {
-		if document[key] != value {
+		if document[key] == nil || document[key] != value {
 			return false
 		}
 	}
 
 	// Foreach interval field
 	for key, value := range class.IntervalAttributes {
-		interval, err := document[key].(anonmodel.NumericRange)
-		if err == false && anonmodel.HasIntersection(value, interval) {
-			return false
+		if document[key] != nil {
+			var numericRange = document[key].(map[string]interface{})
+			var interval = anonmodel.NumericRange{numericRange["Min"].(float64), numericRange["Max"].(float64)}
+			if !anonmodel.HasIntersection(value, interval) {
+				return false
+			}
 		}
 	}
 

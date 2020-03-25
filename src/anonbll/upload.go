@@ -43,9 +43,9 @@ func RegisterUploadIntent(datasetName string, classId int) bool {
 	class, errClass := anondb.GetEqulivalenceClass(classId)
 
 	if errData == nil && errClass == nil {
-		// inrement intents of EC
+
 		class.IntentCount++
-		if dataset.Settings.K == class.IntentCount {
+		if dataset.Settings.K+dataset.Settings.E == class.IntentCount { // Waits for K + E intents before puting to central table
 			var item = anonmodel.CentralTableItem{classId, time.Now().AddDate(0, 0, 1)} //Add one day
 			anondb.CreateCentralTableItem(&item)
 		}
@@ -74,10 +74,10 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 		return false, sessionErr
 	}
 
-	// inrement elements of EC
 	class.Count++
-	if dataset.Settings.E <= class.Count {
+	if dataset.Settings.Max <= class.Count {
 		class.Active = false
+		// TODO: split class
 	}
 	anondb.UpdateEqulivalenceClass(ecId, &class)
 
