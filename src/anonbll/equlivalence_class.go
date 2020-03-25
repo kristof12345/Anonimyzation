@@ -36,8 +36,7 @@ func fieldsMatchEqulivalenceClass(class anonmodel.EqulivalenceClass, document an
 	// Foreach interval field
 	for key, value := range class.IntervalAttributes {
 		if document[key] != nil {
-			var numericRange = document[key].(map[string]interface{})
-			var interval = anonmodel.NumericRange{numericRange["Min"].(float64), numericRange["Max"].(float64)}
+			var interval = convertToRange(document[key])
 			if !anonmodel.HasIntersection(value, interval) {
 				return false
 			}
@@ -45,4 +44,9 @@ func fieldsMatchEqulivalenceClass(class anonmodel.EqulivalenceClass, document an
 	}
 
 	return true
+}
+
+func convertToRange(object interface{}) anonmodel.NumericRange {
+	var numericRange = object.(map[string]interface{})
+	return anonmodel.NumericRange{numericRange["Min"].(float64), numericRange["Max"].(float64)}
 }
