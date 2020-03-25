@@ -3,7 +3,6 @@ package anondb
 import (
 	"anonmodel"
 	"log"
-
 	"github.com/globalsign/mgo"
 )
 

@@ -4,6 +4,7 @@ import (
 	"anondb"
 	"anonmodel"
 	"errors"
+	"time"
 )
 
 // UploadDocuments validates the documents and inserts them into the database
@@ -35,6 +36,25 @@ func UploadDocuments(sessionID string, documents anonmodel.Documents, last bool)
 	return
 }
 
+// Registers the upload intent, if K intents were registered the EC is added to the central table
+func RegisterUploadIntent(datasetName string, classId int) bool {
+
+	dataset, errData := anondb.GetDataset(datasetName)
+	class, errClass := anondb.GetEqulivalenceClass(classId)
+
+	if errData == nil && errClass == nil {
+		// inrement intents of EC
+		class.IntentCount++
+		if dataset.Settings.K == class.IntentCount {
+			var item = anonmodel.CentralTableItem{classId, time.Now().AddDate(0, 0, 1)} //Add one day
+			anondb.CreateCentralTableItem(&item)
+		}
+		anondb.UpdateEqulivalenceClass(classId, &class)
+		return true
+	}
+	return false
+}
+
 // Inserts them into the database, connecting it to the given equlivalence class
 func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Document, ecId int) (bool, error) {
 
@@ -42,6 +62,7 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 	if sessionErr != nil {
 		return false, sessionErr
 	}
+
 	defer anondb.SetUploadSessionNotBusy(dataset.Name, dataset.UploadSessionData.SessionID)
 
 	if dataset.Settings.Algorithm != "client-side" {
@@ -49,14 +70,16 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 	}
 
 	class, getErr := anondb.GetEqulivalenceClass(ecId)
-	if getErr == nil {
-		class.Count++
-		anondb.UpdateEqulivalenceClass(ecId, &class)
-		if dataset.Settings.E <= class.Count {
-			class.Active = false
-			anondb.UpdateEqulivalenceClass(ecId, &class)
-		}
+	if getErr != nil {
+		return false, sessionErr
 	}
+
+	// inrement elements of EC
+	class.Count++
+	if dataset.Settings.E <= class.Count {
+		class.Active = false
+	}
+	anondb.UpdateEqulivalenceClass(ecId, &class)
 
 	document["classId"] = ecId
 	var documents = []anonmodel.Document{document}
@@ -64,6 +87,7 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 	if insertErr != nil {
 		return false, insertErr
 	}
+
 	return true, nil
 }
 

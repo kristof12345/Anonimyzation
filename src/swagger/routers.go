@@ -154,4 +154,11 @@ var routes = []route{
 		Pattern:     "/v1/classes/{id}",
 		HandlerFunc: deleteEqulivalenceClassById,
 	},
+
+	route{
+		Name:        "CentralTableContains",
+		Method:      strings.ToUpper("Get"),
+		Pattern:     "/v1/central/{id}",
+		HandlerFunc: centralTableContainsClass,
+	},
 }

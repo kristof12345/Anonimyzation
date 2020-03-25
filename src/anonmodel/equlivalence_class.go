@@ -8,6 +8,7 @@ type EqulivalenceClass struct {
 	CategoricAttributes map[string]string
 	IntervalAttributes  map[string]NumericRange
 	Count               int
+	IntentCount         int
 	Active              bool
 }
 
