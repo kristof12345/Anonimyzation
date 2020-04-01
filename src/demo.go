@@ -22,15 +22,6 @@ import (
 func main() {
 	fmt.Printf("APP STARTED\n")
 
-	// Dataset
-	/*
-		var dataset anonmodel.Dataset
-		var field1 = anonmodel.FieldAnonymizationInfo{Name: "City", Mode: "cat"} // Kategorikus
-		var field2 = anonmodel.FieldAnonymizationInfo{Name: "Age", Mode: "int"}  // Intervallum
-		var fields []anonmodel.FieldAnonymizationInfo
-		dataset.Fields = append(fields, field1, field2)
-	*/
-
 	// Document
 	var document = make(map[string]interface{})
 	document["City"] = "Bp"
@@ -41,17 +32,4 @@ func main() {
 	for _, eq := range eqs {
 		eq.Print()
 	}
-}
-
-func CreateDemoEqulivalenceClasses() {
-
-	var interval = make(map[string]anonmodel.NumericRange)
-	interval["Age"] = anonmodel.NumericRange{10, 20}
-
-	var categoric = make(map[string]string)
-	categoric["City"] = "Bp"
-
-	var c1 = anonmodel.EqulivalenceClass{1, categoric, interval, 0, true}
-
-	anondb.CreateEqulivalenceClass(&c1)
 }

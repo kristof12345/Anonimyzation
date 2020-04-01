@@ -12,7 +12,7 @@ func GetMatchingClasses(document anonmodel.Document) ([]anonmodel.EqulivalenceCl
 
 	list, err := anondb.ListActiveEqulivalenceClasses()
 
-	if err == nil {
+	if err != nil {
 		// Foreach equlivalence class
 		for _, class := range list {
 			if fieldsMatchEqulivalenceClass(class, document) {
@@ -25,7 +25,6 @@ func GetMatchingClasses(document anonmodel.Document) ([]anonmodel.EqulivalenceCl
 }
 
 func fieldsMatchEqulivalenceClass(class anonmodel.EqulivalenceClass, document anonmodel.Document) bool {
-
 	// Foreach categoric field
 	for key, value := range class.CategoricAttributes {
 		if document[key] == nil || document[key] != value {
