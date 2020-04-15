@@ -45,6 +45,10 @@ func fieldsMatchEqulivalenceClass(class anonmodel.EqulivalenceClass, document an
 }
 
 func convertToRange(object interface{}) anonmodel.NumericRange {
-	var numericRange = object.(map[string]interface{})
-	return anonmodel.NumericRange{numericRange["Min"].(float64), numericRange["Max"].(float64)}
+	numericRange, err := object.(map[string]interface{})
+	if err {
+		return anonmodel.NumericRange{numericRange["Min"].(float64), numericRange["Max"].(float64)}
+	} else {
+		return anonmodel.NumericRange{object.(float64), object.(float64)}
+	}
 }

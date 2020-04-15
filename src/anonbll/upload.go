@@ -39,19 +39,17 @@ func UploadDocuments(sessionID string, documents anonmodel.Documents, last bool)
 // Registers the upload intent, if K intents were registered the EC is added to the central table
 func RegisterUploadIntent(datasetName string, classId int) bool {
 
-	dataset, errData := anondb.GetDataset(datasetName)
-	class, errClass := anondb.GetEqulivalenceClass(classId)
+	var dataset, _ = anondb.GetDataset(datasetName)
+	var class, _ = anondb.GetEqulivalenceClass(classId)
 
-	if errData == nil && errClass == nil {
-
-		class.IntentCount++
-		if dataset.Settings.K+dataset.Settings.E == class.IntentCount { // Waits for K + E intents before puting to central table
-			var item = anonmodel.CentralTableItem{classId, time.Now().AddDate(0, 0, 1)} //Add one day
-			anondb.CreateCentralTableItem(&item)
-		}
+	class.IntentCount++
+	if dataset.Settings.K+dataset.Settings.E == class.IntentCount { // Waits for K + E intents before puting to central table
+		var item = anonmodel.CentralTableItem{classId, time.Now().AddDate(0, 0, 1)} //Add one day
+		anondb.CreateCentralTableItem(&item)
 		anondb.UpdateEqulivalenceClass(classId, &class)
 		return true
 	}
+	anondb.UpdateEqulivalenceClass(classId, &class)
 	return false
 }
 

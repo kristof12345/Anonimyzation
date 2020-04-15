@@ -10,13 +10,10 @@ func CreateEqulivalenceClass(class *anonmodel.EqulivalenceClass) (*anonmodel.Equ
 	session := globalSession.Copy()
 	defer session.Close()
 
-	//Check if id is already used
-	var filter = bson.M{"id": class.Id}
+	// Calculate id
 	eq := session.DB("anondb").C("classes")
-	count, err := eq.Find(filter).Count()
-	if count > 0 {
-		return nil, ErrDuplicate
-	}
+	count, err := eq.Find(nil).Count()
+	class.Id = count
 
 	// Insert document
 	classes := session.DB("anondb").C("classes")

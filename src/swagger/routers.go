@@ -161,4 +161,11 @@ var routes = []route{
 		Pattern:     "/v1/central/{id}",
 		HandlerFunc: centralTableContainsClass,
 	},
+
+	route{
+		Name:        "RegisterUploadIntent",
+		Method:      strings.ToUpper("Put"),
+		Pattern:     "/v1/classes/{dataset}/{id}",
+		HandlerFunc: registerUploadIntent,
+	},
 }

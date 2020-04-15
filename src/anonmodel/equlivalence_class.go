@@ -4,7 +4,7 @@ import "fmt"
 
 // Eklivalencia osztaly
 type EqulivalenceClass struct {
-	Id                  int
+	Id                  int `bson:"id"`
 	CategoricAttributes map[string]string
 	IntervalAttributes  map[string]NumericRange
 	Count               int

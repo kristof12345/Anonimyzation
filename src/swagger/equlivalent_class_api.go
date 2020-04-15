@@ -98,3 +98,21 @@ func deleteEqulivalenceClassById(w http.ResponseWriter, r *http.Request) {
 		respondWithJSON(w, http.StatusOK, "Deleted.")
 	}
 }
+
+// Register upload intent
+func registerUploadIntent(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+
+	// Parsing dataset name
+	var dataset = vars["dataset"]
+
+	// Parsing id
+	id, parseErr := strconv.Atoi(vars["id"])
+	if parseErr != nil {
+		respondWithError(w, http.StatusBadRequest, "Unable to parse id.")
+		return
+	}
+
+	var result = anonbll.RegisterUploadIntent(dataset, id)
+	respondWithJSON(w, http.StatusOK, result)
+}

@@ -6,6 +6,6 @@ import (
 
 // Kozponti tabla bejegyzes
 type CentralTableItem struct {
-	EcId int
-	Time time.Time
+	Id   int `bson:"id"`
+	Time time.Time `bson:"time"`
 }

@@ -22,7 +22,7 @@ func centralTableContainsClass(w http.ResponseWriter, r *http.Request) {
 	item, err := anondb.GetCentralTableItem(id)
 
 	if err != nil {
-		respondWithJSON(w, http.StatusNotFound, "Not found.")
+		respondWithJSON(w, http.StatusOK, nil)
 	} else {
 		respondWithJSON(w, http.StatusOK, item)
 	}
