@@ -2,7 +2,6 @@ package anondb
 
 import (
 	"anonmodel"
-	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
 )
 
@@ -11,12 +10,17 @@ func CreateEqulivalenceClass(class *anonmodel.EqulivalenceClass) (*anonmodel.Equ
 	session := globalSession.Copy()
 	defer session.Close()
 
-	classes := session.DB("anondb").C("classes")
-	err := classes.Insert(class)
-	if err != nil && mgo.IsDup(err) {
-		return class, ErrDuplicate
+	//Check if id is already used
+	var filter = bson.M{"id": class.Id}
+	eq := session.DB("anondb").C("classes")
+	count, err := eq.Find(filter).Count()
+	if count > 0 {
+		return nil, ErrDuplicate
 	}
 
+	// Insert document
+	classes := session.DB("anondb").C("classes")
+	err = classes.Insert(class)
 	return class, err
 }
 
