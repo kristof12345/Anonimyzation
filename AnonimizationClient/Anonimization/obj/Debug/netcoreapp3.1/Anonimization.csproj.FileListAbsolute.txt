@@ -1,0 +1,10 @@
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\bin\Debug\netcoreapp3.1\Anonimization.deps.json
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\bin\Debug\netcoreapp3.1\Anonimization.dll
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\obj\Debug\netcoreapp3.1\Anonimization.csprojAssemblyReference.cache
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\obj\Debug\netcoreapp3.1\Anonimization.AssemblyInfoInputs.cache
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\obj\Debug\netcoreapp3.1\Anonimization.AssemblyInfo.cs
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\obj\Debug\netcoreapp3.1\RefitStubs.g.cs
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\bin\Debug\netcoreapp3.1\Anonimization.pdb
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\obj\Debug\netcoreapp3.1\Anonimization.csproj.CoreCompileInputs.cache
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\obj\Debug\netcoreapp3.1\Anonimization.dll
+C:\Users\pappkristof\source\repos\AnonimizationClient\Anonimization\obj\Debug\netcoreapp3.1\Anonimization.pdb

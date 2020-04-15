@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "PxcgOIhCqueDTf9LOdLF3vSmnJZVfFjOFYzNek+FBldxHMYbNldBDPpZHPZUYfg0lzoWXJ/H3skYNopBRJrcEQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\Anonimization.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.3\\microsoft.extensions.configuration.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.3\\microsoft.extensions.configuration.abstractions.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.3\\microsoft.extensions.configuration.binder.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.3\\microsoft.extensions.dependencyinjection.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.3\\microsoft.extensions.dependencyinjection.abstractions.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.http\\3.1.3\\microsoft.extensions.http.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.logging\\3.1.3\\microsoft.extensions.logging.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.3\\microsoft.extensions.logging.abstractions.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.options\\3.1.3\\microsoft.extensions.options.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.3\\microsoft.extensions.primitives.3.1.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\refit\\5.1.67\\refit.5.1.67.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\refit.httpclientfactory\\5.1.67\\refit.httpclientfactory.5.1.67.nupkg.sha512",
+    "C:\\Users\\pappkristof\\.nuget\\packages\\system.text.json\\4.7.1\\system.text.json.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}

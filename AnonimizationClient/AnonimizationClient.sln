@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnonimizationClient", "AnonimizationClient\AnonimizationClient.csproj", "{BBA4FF7F-776F-4959-BD10-0C4B0313AE68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anonimization", "Anonimization\Anonimization.csproj", "{57AFF837-CDC4-4A3E-BA98-848F31E82A2D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBA4FF7F-776F-4959-BD10-0C4B0313AE68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA4FF7F-776F-4959-BD10-0C4B0313AE68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA4FF7F-776F-4959-BD10-0C4B0313AE68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA4FF7F-776F-4959-BD10-0C4B0313AE68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57AFF837-CDC4-4A3E-BA98-848F31E82A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57AFF837-CDC4-4A3E-BA98-848F31E82A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57AFF837-CDC4-4A3E-BA98-848F31E82A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57AFF837-CDC4-4A3E-BA98-848F31E82A2D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D173A917-3A1F-4B54-93BC-32724490895F}
+	EndGlobalSection
+EndGlobal
