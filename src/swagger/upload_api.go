@@ -88,9 +88,9 @@ func uploadDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	successful, err := anonbll.UploadDocumentToEqulivalenceClass(vars["sessionId"], document, class)
+	successful, message := anonbll.UploadDocumentToEqulivalenceClass(vars["sessionId"], document, class)
 	if !successful {
-		respondWithError(w, http.StatusBadRequest, err.Error())
+		respondWithError(w, http.StatusBadRequest, message)
 
 	} else {
 		response := UploadResponse{

@@ -3,7 +3,6 @@ package anonbll
 import (
 	"anondb"
 	"anonmodel"
-	"errors"
 	"time"
 )
 
@@ -32,7 +31,6 @@ func UploadDocuments(sessionID string, documents anonmodel.Documents, last bool)
 			finalizeSuccessful = true
 		}
 	}
-
 	return
 }
 
@@ -53,23 +51,21 @@ func RegisterUploadIntent(datasetName string, classId int) bool {
 	return false
 }
 
-// Inserts them into the database, connecting it to the given equlivalence class
-func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Document, ecId int) (bool, error) {
+// Inserts documents into the database, connecting it to the given equlivalence class
+func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Document, ecId int) (bool, string) {
 
 	dataset, sessionErr := anondb.SetUploadSessionBusy(sessionID)
 	if sessionErr != nil {
-		return false, sessionErr
+		return false, "Dataset not found"
 	}
 
-	defer anondb.SetUploadSessionNotBusy(dataset.Name, dataset.UploadSessionData.SessionID)
-
 	if dataset.Settings.Algorithm != "client-side" {
-		return false, errors.New("Algorithm should be client-side.")
+		return false, "Algorithm should be client-side"
 	}
 
 	class, getErr := anondb.GetEqulivalenceClass(ecId)
 	if getErr != nil {
-		return false, sessionErr
+		return false, "Equlivalence class not found"
 	}
 
 	class.Count++
@@ -80,13 +76,19 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 	anondb.UpdateEqulivalenceClass(ecId, &class)
 
 	document["classId"] = ecId
+
 	var documents = []anonmodel.Document{document}
+
+	// Insert to DB
 	var insertErr = anondb.InsertDocuments(dataset.Name, documents, false)
 	if insertErr != nil {
-		return false, insertErr
+		return false, "Unable to insert documents"
 	}
 
-	return true, nil
+	anondb.SetUploadSessionNotBusy(dataset.Name, sessionID)
+	anondb.FinishUploadSession(dataset.Name, sessionID)
+
+	return true, "Success!"
 }
 
 func uploadDocuments(documents anonmodel.Documents, dataset *anonmodel.Dataset, continuous bool, last bool) error {
