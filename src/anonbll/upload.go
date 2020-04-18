@@ -71,7 +71,8 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 	class.Count++
 	if dataset.Settings.Max <= class.Count {
 		class.Active = false
-		// TODO: split class
+		// Split class
+		splitEqulivalenceClass(&class)
 	}
 	anondb.UpdateEqulivalenceClass(ecId, &class)
 
@@ -89,6 +90,22 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 	anondb.FinishUploadSession(dataset.Name, sessionID)
 
 	return true, "Success!"
+}
+
+func splitEqulivalenceClass(class *anonmodel.EqulivalenceClass) {
+	var lowerInterval map[string]anonmodel.NumericRange
+	var upperInterval map[string]anonmodel.NumericRange
+	// Foreach
+	for key, value := range class.IntervalAttributes {
+		half := value.Max / 2
+		lowerInterval[key] = anonmodel.NumericRange{Min: value.Min, Max: half}
+		upperInterval[key] = anonmodel.NumericRange{Min: half, Max: value.Max}
+	}
+	var lowerClass = anonmodel.EqulivalenceClass{IntervalAttributes: lowerInterval, CategoricAttributes: class.CategoricAttributes}
+	var upperClass = anonmodel.EqulivalenceClass{IntervalAttributes: upperInterval, CategoricAttributes: class.CategoricAttributes}
+
+	anondb.CreateEqulivalenceClass(&lowerClass)
+	anondb.CreateEqulivalenceClass(&upperClass)
 }
 
 func uploadDocuments(documents anonmodel.Documents, dataset *anonmodel.Dataset, continuous bool, last bool) error {
