@@ -98,6 +98,12 @@ var routes = []route{
 		Pattern:     "/v1/datasets/{name}",
 		HandlerFunc: datasetsNamePut,
 	},
+	route{
+		Name:        "AddFieldToDataset",
+		Method:      strings.ToUpper("Put"),
+		Pattern:     "/v1/datasets/{name}/update",
+		HandlerFunc: updateDataset,
+	},
 
 	route{
 		Name:        "UploadPost",

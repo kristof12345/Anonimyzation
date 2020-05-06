@@ -12,9 +12,8 @@ package swagger
 import (
 	"anondb"
 	"anonmodel"
-	"net/http"
-
 	"github.com/gorilla/mux"
+	"net/http"
 )
 
 func datasetsGet(w http.ResponseWriter, r *http.Request) {
