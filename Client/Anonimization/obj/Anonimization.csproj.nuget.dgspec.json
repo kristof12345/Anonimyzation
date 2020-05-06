@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\Anonimization.csproj": {}
+    "C:\\Users\\pappkristof\\go\\Client\\Anonimization\\Anonimization.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\Anonimization.csproj": {
+    "C:\\Users\\pappkristof\\go\\Client\\Anonimization\\Anonimization.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\Anonimization.csproj",
+        "projectUniqueName": "C:\\Users\\pappkristof\\go\\Client\\Anonimization\\Anonimization.csproj",
         "projectName": "Anonimization",
-        "projectPath": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\Anonimization.csproj",
+        "projectPath": "C:\\Users\\pappkristof\\go\\Client\\Anonimization\\Anonimization.csproj",
         "packagesPath": "C:\\Users\\pappkristof\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\obj\\",
+        "outputPath": "C:\\Users\\pappkristof\\go\\Client\\Anonimization\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pappkristof\\AppData\\Roaming\\NuGet\\NuGet.Config",

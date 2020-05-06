@@ -629,11 +629,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\AnonimizationClient\\AnonimizationClient.csproj",
+      "projectUniqueName": "C:\\Users\\pappkristof\\go\\Client\\AnonimizationClient\\AnonimizationClient.csproj",
       "projectName": "AnonimizationClient",
-      "projectPath": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\AnonimizationClient\\AnonimizationClient.csproj",
+      "projectPath": "C:\\Users\\pappkristof\\go\\Client\\AnonimizationClient\\AnonimizationClient.csproj",
       "packagesPath": "C:\\Users\\pappkristof\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\AnonimizationClient\\obj\\",
+      "outputPath": "C:\\Users\\pappkristof\\go\\Client\\AnonimizationClient\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pappkristof\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -649,8 +649,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\Anonimization.csproj": {
-              "projectPath": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\Anonimization.csproj"
+            "C:\\Users\\pappkristof\\go\\Client\\Anonimization\\Anonimization.csproj": {
+              "projectPath": "C:\\Users\\pappkristof\\go\\Client\\Anonimization\\Anonimization.csproj"
             }
           }
         }

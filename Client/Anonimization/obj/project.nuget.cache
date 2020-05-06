@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PxcgOIhCqueDTf9LOdLF3vSmnJZVfFjOFYzNek+FBldxHMYbNldBDPpZHPZUYfg0lzoWXJ/H3skYNopBRJrcEQ==",
+  "dgSpecHash": "21XP2R017fbF4ok19iEPpPS4SIE57C99HKNSUJIrWsU+glCwL9wPO2HxbPpsIuk5Sry2GtDZzxQyD2BJvyrQLg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pappkristof\\source\\repos\\AnonimizationClient\\Anonimization\\Anonimization.csproj",
+  "projectFilePath": "C:\\Users\\pappkristof\\go\\Client\\Anonimization\\Anonimization.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.3\\microsoft.extensions.configuration.3.1.3.nupkg.sha512",
     "C:\\Users\\pappkristof\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.3\\microsoft.extensions.configuration.abstractions.3.1.3.nupkg.sha512",

@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "770ed69d-2830-4711-af3d-b53c23283459",
+		"name": "Anonymization",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Create dataset",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"settings\": {\n        \"e\": 0,\n        \"max\": 5,\n        \"k\": 2,\n        \"algorithm\": \"client-side\",\n        \"mode\": \"continuous\"\n    },\n    \"fields\": [\n        {\n            \"name\": \"age\",\n            \"mode\": \"int\",\n            \"type\": \"numeric\"\n        },\n        {\n            \"name\": \"city\",\n            \"mode\": \"cat\",\n            \"type\": \"string\"\n        },\n        {\n            \"name\": \"private\",\n            \"mode\": \"keep\",\n            \"type\": \"string\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9137/v1/datasets/second",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"datasets",
+						"second"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Get matching eq. classes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"city\": \"Budapest\",\n    \"age\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9137/v1/classes/matching",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"classes",
+						"matching"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Create equliv. class",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"CategoricAttributes\": {\n        \"city\": \"Budapest\"\n    },\n    \"IntervalAttributes\": {\n        \"age\": {\n            \"min\": 0,\n            \"max\": 40\n        }\n    },\n    \"Active\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9137/v1/classes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"classes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Register upload intent",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9137/v1/classes/second/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"classes",
+						"second",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Get central table",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9137/v1/central/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"central",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Start upload session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"datasetName\": \"secon\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9137/v1/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"private\": \"secret data 1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9137/v1/upload/DwcT4HviSy6Ne_oWj3eSRQ/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"upload",
+						"DwcT4HviSy6Ne_oWj3eSRQ",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. List anonimized documents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9137/v1/data/second",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"data",
+						"second"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. Add field to dataset",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"height\",\n    \"mode\": \"int\",\n    \"type\": \"numeric\",\n    \"preferedSize\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9137/v1/datasets/second/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"datasets",
+						"second",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10. Get all datasets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9137/v1/datasets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"datasets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get equliv. classes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9137/v1/classes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"classes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get equliv. class by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9137/v1/classes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"classes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete equliv. class",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9137/v1/classes/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9137",
+					"path": [
+						"v1",
+						"classes",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

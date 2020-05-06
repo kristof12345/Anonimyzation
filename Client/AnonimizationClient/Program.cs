@@ -38,6 +38,9 @@ namespace AnonimizationClient
 
         private static async Task WriteResults(Dataset dataset)
         {
+            Console.WriteLine();
+            Console.WriteLine("Anonimized documents (as stored in DB)");
+
             var anonimizationApi = RestService.For<IAnonimizationApi>("http://localhost:9137/v1");
 
             var service = new AnonimizationService(anonimizationApi);
@@ -52,6 +55,9 @@ namespace AnonimizationClient
 
         private static async Task WriteResultsWithClasses(Dataset dataset)
         {
+            Console.WriteLine();
+            Console.WriteLine("Anonimized documents (joined with equlivalence classes)");
+
             var anonimizationApi = RestService.For<IAnonimizationApi>("http://localhost:9137/v1");
 
             var service = new AnonimizationService(anonimizationApi);
