@@ -4,9 +4,10 @@ import "fmt"
 
 // FieldAnonymizationInfo stores how each data field should be handled during anonymization
 type FieldAnonymizationInfo struct {
-	Name string `json:"name" bson:"name"`
-	Mode string `json:"mode" bson:"mode"`
-	Type string `json:"type" bson:"type"`
+	Name         string  `json:"name" bson:"name"`
+	Mode         string  `json:"mode" bson:"mode"`
+	Type         string  `json:"type" bson:"type"`
+	PreferedSize float64 `json:"preferedSize" bson:"preferedSize"`
 }
 
 func (fieldInfo *FieldAnonymizationInfo) validate() error {

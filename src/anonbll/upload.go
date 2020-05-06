@@ -3,6 +3,7 @@ package anonbll
 import (
 	"anondb"
 	"anonmodel"
+
 	"time"
 )
 
@@ -59,7 +60,7 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 		return false, "Dataset not found"
 	}
 
-	if dataset.Settings.Algorithm != "client-side" {
+	if dataset.Settings.Algorithm != "client-side" && dataset.Settings.Algorithm != "client-side-custom" {
 		return false, "Algorithm should be client-side"
 	}
 
@@ -69,11 +70,15 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 	}
 
 	class.Count++
+
 	if dataset.Settings.Max <= class.Count {
 		class.Active = false
 		// Split class
-		splitEqulivalenceClass(&class)
+		if dataset.Settings.Algorithm == "client-side" {
+			splitEqulivalenceClass(&class)
+		}
 	}
+
 	anondb.UpdateEqulivalenceClass(ecId, &class)
 
 	document["classId"] = ecId
@@ -93,16 +98,16 @@ func UploadDocumentToEqulivalenceClass(sessionID string, document anonmodel.Docu
 }
 
 func splitEqulivalenceClass(class *anonmodel.EqulivalenceClass) {
-	var lowerInterval map[string]anonmodel.NumericRange
-	var upperInterval map[string]anonmodel.NumericRange
+	var lowerInterval = make(map[string]anonmodel.NumericRange)
+	var upperInterval = make(map[string]anonmodel.NumericRange)
 	// Foreach
 	for key, value := range class.IntervalAttributes {
 		half := value.Max / 2
 		lowerInterval[key] = anonmodel.NumericRange{Min: value.Min, Max: half}
 		upperInterval[key] = anonmodel.NumericRange{Min: half, Max: value.Max}
 	}
-	var lowerClass = anonmodel.EqulivalenceClass{IntervalAttributes: lowerInterval, CategoricAttributes: class.CategoricAttributes}
-	var upperClass = anonmodel.EqulivalenceClass{IntervalAttributes: upperInterval, CategoricAttributes: class.CategoricAttributes}
+	var lowerClass = anonmodel.EqulivalenceClass{IntervalAttributes: lowerInterval, CategoricAttributes: class.CategoricAttributes, Active: true}
+	var upperClass = anonmodel.EqulivalenceClass{IntervalAttributes: upperInterval, CategoricAttributes: class.CategoricAttributes, Active: true}
 
 	anondb.CreateEqulivalenceClass(&lowerClass)
 	anondb.CreateEqulivalenceClass(&upperClass)

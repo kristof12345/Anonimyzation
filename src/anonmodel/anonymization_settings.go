@@ -16,8 +16,8 @@ func (settings *AnonymizationSettings) validate() error {
 		return fmt.Errorf("The 'k' value should be at least 2, got: %v", settings.K)
 	}
 
-	if settings.Algorithm != "mondrian" && settings.Algorithm != "client-side" {
-		return fmt.Errorf("The only currently supported anonymizations are 'mondrian' or 'client-side', got '%v'", settings.Algorithm)
+	if settings.Algorithm != "mondrian" && settings.Algorithm != "client-side" && settings.Algorithm != "client-side-custom" {
+		return fmt.Errorf("The only currently supported anonymizations are 'mondrian', 'client-side' or 'client-side-custom', got '%v'", settings.Algorithm)
 	}
 
 	if settings.Mode != "single" && settings.Mode != "continuous" {

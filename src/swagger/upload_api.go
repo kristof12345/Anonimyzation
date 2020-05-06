@@ -96,6 +96,7 @@ func uploadDocumentToEqulivalenceClass(w http.ResponseWriter, r *http.Request) {
 		response := UploadResponse{
 			InsertSuccessful:   successful,
 			FinalizeSuccessful: successful,
+			Error:              message,
 		}
 		respondWithJSON(w, http.StatusOK, &response)
 	}

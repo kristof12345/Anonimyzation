@@ -2,8 +2,9 @@ package anondb
 
 import (
 	"anonmodel"
-	"log"
 	"github.com/globalsign/mgo"
+	"github.com/globalsign/mgo/bson"
+	"log"
 )
 
 // CreateDataset creates a new dataset
@@ -18,6 +19,24 @@ func CreateDataset(dataset *anonmodel.Dataset) error {
 	}
 
 	return err
+}
+
+// UpdateDataset adds an extra field to a dataset
+func UpdateDataset(name string, field anonmodel.FieldAnonymizationInfo) (dataset anonmodel.Dataset, err error) {
+	session := globalSession.Copy()
+	defer session.Close()
+
+	datasets := session.DB("anondb").C("datasets")
+	if err = datasets.FindId(name).One(&dataset); err == mgo.ErrNotFound {
+		err = ErrNotFound
+		return
+	}
+
+	// If found we add the field
+	dataset.Fields = append(dataset.Fields, field)
+	var filter = bson.M{"_id": name}
+	datasets.Update(filter, dataset)
+	return
 }
 
 // GetDataset tries to find a dataset with a given name
